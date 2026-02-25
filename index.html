@@ -1,117 +1,284 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-    
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Хроники Программиста</title>
+    <style>
+        :root {
+            --primary-color: #2c3e50;
+            --accent-color: #3498db;
+            --success-color: #27ae60;
+            --bg-color: #f4f7f6;
+            --card-bg: #ffffff;
+            --text-color: #333;
+        }
 
-<h1>21 02 2026</h1>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: var(--text-color);
+            background-color: var(--bg-color);
+            margin: 0;
+            padding: 20px;
+        }
 
-У каждого поколения есть свой философ, писатель или художник, который захватывает и воплощает в себе идею времени. Иногда эти философы получают признание при жизни, но чаще всего им приходится ждать, пока на них наложит свой отпечаток время. Независимо от того, будет ли это признание немедленным или запоздалым, эпоха отмечена этими людьми, выражающими свои идеалы в шепоте стихов или в грохоте политического движения. У нашего поколения есть философ. Он не художник и не писатель. Он программист.
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
 
-</body>
-</html>
+        /* Стили для дат и заголовков */
+        .date-header {
+            font-size: 1.2rem;
+            color: var(--accent-color);
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-top: 40px;
+            margin-bottom: 15px;
+            border-bottom: 2px solid #e0e0e0;
+            padding-bottom: 5px;
+        }
 
+        /* Стили для философского блока */
+        .quote-block {
+            background: var(--card-bg);
+            border-left: 5px solid var(--primary-color);
+            padding: 20px;
+            margin-bottom: 30px;
+            border-radius: 4px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+            font-style: italic;
+        }
+        
+        .quote-block h1 {
+            font-size: 1.5rem;
+            margin-top: 0;
+            color: var(--primary-color);
+        }
 
+        /* Стили для карточек ребусов */
+        .puzzle-card {
+            background: var(--card-bg);
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            transition: transform 0.2s;
+        }
 
-<h2>25 02 2026</h2>
+        .puzzle-card:hover {
+            transform: translateY(-2px);
+        }
 
-РЕШЕНИЕ РЕБУСА SEND + MORE = MONEY
-========================================
+        .puzzle-title {
+            font-family: 'Courier New', Courier, monospace;
+            font-weight: bold;
+            font-size: 1.2rem;
+            color: var(--primary-color);
+            margin-bottom: 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
 
-📊 Соответствие букв и цифр:
-----------------------------------------
-  S = 9
-  E = 5
-  N = 6
-  D = 7
-  M = 1
-  O = 0
-  R = 8
-  Y = 2
+        .time-badge {
+            font-size: 0.8rem;
+            background: #ecf0f1;
+            padding: 4px 8px;
+            border-radius: 4px;
+            color: #7f8c8d;
+        }
 
-🧮 Проверка сложения:
-----------------------------------------
-  9567  (SEND)
-+ 1085  (MORE)
----------------
-  10652  (MONEY)
+        .equation-box {
+            background: #2c3e50;
+            color: #ecf0f1;
+            padding: 15px;
+            border-radius: 5px;
+            font-family: 'Courier New', Courier, monospace;
+            text-align: center;
+            font-size: 1.1rem;
+            margin-bottom: 15px;
+            white-space: pre;
+        }
 
-✅ Равенство верно!
+        .solution-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(60px, 1fr));
+            gap: 10px;
+            margin-bottom: 15px;
+        }
 
-РЕБУС 1: КТО + КОТ = ТОК
-============================================================
+        .var-item {
+            background: #f8f9fa;
+            border: 1px solid #e9ecef;
+            padding: 8px;
+            text-align: center;
+            border-radius: 4px;
+        }
 
-⏱ Время решения: 0.0007 сек
+        .var-letter {
+            display: block;
+            font-weight: bold;
+            color: var(--accent-color);
+            font-size: 0.9rem;
+        }
 
-📊 Соответствие:
-  К = 4
-  Т = 9
-  О = 5
+        .var-value {
+            display: block;
+            font-size: 1.2rem;
+            color: var(--primary-color);
+        }
 
-🧮 Проверка: 495 + 459 = 954
-✅ 495 + 459 = 954 ✓
+        .status-success {
+            color: var(--success-color);
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
 
-============================================================
-РЕБУС 2: КОШКА + КОШКА + КОШКА = СОБАКА
-============================================================
+        /* Адаптивность */
+        @media (max-width: 600px) {
+            .puzzle-title {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 5px;
+            }
+        }
+    </style>
+</head>
+<body>
 
-⏱ Время решения: 0.2269 сек
+<div class="container">
 
-📊 Соответствие:
-  К = 5
-  О = 6
-  Ш = 3
-  К = 5
-  А = 0
-  С = 1
-  Б = 9
+    <!-- Блок 1: Философия -->
+    <div class="date-header">21 02 2026</div>
+    <div class="quote-block">
+        <h1>Манифест Поколения</h1>
+        <p>У каждого поколения есть свой философ, писатель или художник, который захватывает и воплощает в себе идею времени. Иногда эти философы получают признание при жизни, но чаще всего им приходится ждать, пока на них наложит свой отпечаток время. Независимо от того, будет ли это признание немедленным или запоздалым, эпоха отмечена этими людьми, выражающими свои идеалы в шепоте стихов или в грохоте политического движения.</p>
+        <p><strong>У нашего поколения есть философ. Он не художник и не писатель. Он программист.</strong></p>
+    </div>
 
-🧮 Проверка: 56350 × 3 = 169050
-✅ 56350 × 3 = 169050 ✓
+    <!-- Блок 2: Результаты -->
+    <div class="date-header">25 02 2026</div>
+    <h2 style="text-align: center; color: #7f8c8d; font-weight: normal;">Отчет о вычислениях</h2>
 
-============================================================
-РЕБУС 3: СИНУС + СИНУС + КОСИНУС = ТАНГЕНС
-============================================================
+    <!-- Ребус 1 -->
+    <div class="puzzle-card">
+        <div class="puzzle-title">
+            SEND + MORE = MONEY
+            <span class="time-badge">Классика</span>
+        </div>
+        <div class="equation-box">  9567
++ 1085
+------
+ 10652</div>
+        <div class="solution-grid">
+            <div class="var-item"><span class="var-letter">S</span><span class="var-value">9</span></div>
+            <div class="var-item"><span class="var-letter">E</span><span class="var-value">5</span></div>
+            <div class="var-item"><span class="var-letter">N</span><span class="var-value">6</span></div>
+            <div class="var-item"><span class="var-letter">D</span><span class="var-value">7</span></div>
+            <div class="var-item"><span class="var-letter">M</span><span class="var-value">1</span></div>
+            <div class="var-item"><span class="var-letter">O</span><span class="var-value">0</span></div>
+            <div class="var-item"><span class="var-letter">R</span><span class="var-value">8</span></div>
+            <div class="var-item"><span class="var-letter">Y</span><span class="var-value">2</span></div>
+        </div>
+        <div class="status-success">✅ Равенство верно!</div>
+    </div>
 
-⏱ Время решения: 3.9552 сек
+    <!-- Ребус 2 -->
+    <div class="puzzle-card">
+        <div class="puzzle-title">
+            КТО + КОТ = ТОК
+            <span class="time-badge">⏱ 0.0007 сек</span>
+        </div>
+        <div class="equation-box">  495
++ 459
+-----
+  954</div>
+        <div class="solution-grid">
+            <div class="var-item"><span class="var-letter">К</span><span class="var-value">4</span></div>
+            <div class="var-item"><span class="var-letter">Т</span><span class="var-value">9</span></div>
+            <div class="var-item"><span class="var-letter">О</span><span class="var-value">5</span></div>
+        </div>
+        <div class="status-success">✅ 495 + 459 = 954</div>
+    </div>
 
-📊 Соответствие:
-  С = 5
-  И = 8
-  Н = 7
-  У = 2
-  К = 3
-  О = 9
-  Т = 4
-  А = 0
-  Г = 6
-  Е = 1
+    <!-- Ребус 3 -->
+    <div class="puzzle-card">
+        <div class="puzzle-title">
+            КОШКА × 3 = СОБАКА
+            <span class="time-badge">⏱ 0.2269 сек</span>
+        </div>
+        <div class="equation-box">  56350
+×     3
+-------
+ 169050</div>
+        <div class="solution-grid">
+            <div class="var-item"><span class="var-letter">К</span><span class="var-value">5</span></div>
+            <div class="var-item"><span class="var-letter">О</span><span class="var-value">6</span></div>
+            <div class="var-item"><span class="var-letter">Ш</span><span class="var-value">3</span></div>
+            <div class="var-item"><span class="var-letter">А</span><span class="var-value">0</span></div>
+            <div class="var-item"><span class="var-letter">С</span><span class="var-value">1</span></div>
+            <div class="var-item"><span class="var-letter">Б</span><span class="var-value">9</span></div>
+        </div>
+        <div class="status-success">✅ 56350 × 3 = 169050</div>
+    </div>
 
-🧮 Проверка: 58725 + 58725 + 3958725 = 4076175
-✅ 58725 + 58725 + 3958725 = 4076175 ✓
+    <!-- Ребус 4 -->
+    <div class="puzzle-card">
+        <div class="puzzle-title">
+            2×СИНУС + КОСИНУС = ТАНГЕНС
+            <span class="time-badge">⏱ 3.9552 сек</span>
+        </div>
+        <div class="equation-box">   58725
+   58725
++ 3958725
+---------
+  4076175</div>
+        <div class="solution-grid">
+            <div class="var-item"><span class="var-letter">С</span><span class="var-value">5</span></div>
+            <div class="var-item"><span class="var-letter">И</span><span class="var-value">8</span></div>
+            <div class="var-item"><span class="var-letter">Н</span><span class="var-value">7</span></div>
+            <div class="var-item"><span class="var-letter">У</span><span class="var-value">2</span></div>
+            <div class="var-item"><span class="var-letter">К</span><span class="var-value">3</span></div>
+            <div class="var-item"><span class="var-letter">О</span><span class="var-value">9</span></div>
+            <div class="var-item"><span class="var-letter">Т</span><span class="var-value">4</span></div>
+            <div class="var-item"><span class="var-letter">А</span><span class="var-value">0</span></div>
+            <div class="var-item"><span class="var-letter">Г</span><span class="var-value">6</span></div>
+            <div class="var-item"><span class="var-letter">Е</span><span class="var-value">1</span></div>
+        </div>
+        <div class="status-success">✅ Сумма верна</div>
+    </div>
 
-============================================================
-РЕБУС 4: ВОЛК + ЛИСА = ЗВЕРИ
-============================================================
+    <!-- Ребус 5 -->
+    <div class="puzzle-card">
+        <div class="puzzle-title">
+            ВОЛК + ЛИСА = ЗВЕРИ
+            <span class="time-badge">⏱ 2.7545 сек</span>
+        </div>
+        <div class="equation-box">  5392
++ 9684
+------
+ 15076</div>
+        <div class="solution-grid">
+            <div class="var-item"><span class="var-letter">В</span><span class="var-value">5</span></div>
+            <div class="var-item"><span class="var-letter">О</span><span class="var-value">3</span></div>
+            <div class="var-item"><span class="var-letter">Л</span><span class="var-value">9</span></div>
+            <div class="var-item"><span class="var-letter">К</span><span class="var-value">2</span></div>
+            <div class="var-item"><span class="var-letter">И</span><span class="var-value">6</span></div>
+            <div class="var-item"><span class="var-letter">С</span><span class="var-value">8</span></div>
+            <div class="var-item"><span class="var-letter">А</span><span class="var-value">4</span></div>
+            <div class="var-item"><span class="var-letter">З</span><span class="var-value">1</span></div>
+            <div class="var-item"><span class="var-letter">Е</span><span class="var-value">0</span></div>
+            <div class="var-item"><span class="var-letter">Р</span><span class="var-value">7</span></div>
+        </div>
+        <div class="status-success">✅ 5392 + 9684 = 15076</div>
+    </div>
 
-⏱ Время решения: 2.7545 сек
-
-📊 Соответствие:
-  В = 5
-  О = 3
-  Л = 9
-  К = 2
-  И = 6
-  С = 8
-  А = 4
-  З = 1
-  Е = 0
-  Р = 7
-
-🧮 Проверка: 5392 + 9684 = 15076
-✅ 5392 + 9684 = 15076 ✓
-
-============================================================
-ВСЕ РЕБУСЫ РЕШЕНЫ!
+</div>
 
 </body>
 </html>

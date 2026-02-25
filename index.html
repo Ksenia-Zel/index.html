@@ -1,3 +1,4 @@
+```html
 <!DOCTYPE html>
 <html lang="ru">
 <head>
@@ -88,16 +89,19 @@
             color: #880e4f;
         }
 
+        /* ИЗМЕНЕНИЕ: Блок с вычислениями теперь черный и жирный */
         .equation-box {
-            background: #c2185b;
-            color: #fce4ec;
+            background: #fce4ec; /* Сделал фон чуть светлее, чтобы черный текст читался лучше */
+            color: #000000;       /* Цвет текста черный */
             padding: 15px;
             border-radius: 5px;
             font-family: 'Courier New', Courier, monospace;
             text-align: center;
             font-size: 1.1rem;
+            font-weight: 900;     /* Жирный шрифт */
             margin-bottom: 15px;
             white-space: pre;
+            border: 2px solid var(--accent-color); /* Добавил рамку для контраста */
         }
 
         .solution-grid {
@@ -123,6 +127,7 @@
             margin-bottom: 2px;
         }
 
+        /* ИЗМЕНЕНИЕ: Цифры в сетке решения теперь черные и жирные */
         .var-value {
             display: block;
             color: #000000;
@@ -274,3 +279,4 @@
 
 </body>
 </html>
+```

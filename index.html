@@ -98,7 +98,7 @@
             font-family: 'Courier New', Courier, monospace;
             text-align: center;
             font-size: 1.1rem;
-            font-weight: 900;     /* Жирный шрифт */
+            font-weight: 900;     /* Жирный шрифт */yfgbib rjul lkz cfqnf 
             margin-bottom: 15px;
             white-space: pre;
             border: 2px solid var(--accent-color); /* Добавил рамку для контраста */
@@ -280,3 +280,99 @@
 </body>
 </html>
 ```
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Результат задания</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: #333;
+        }
+
+        .container {
+            background-color: white;
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+            text-align: center;
+            max-width: 400px;
+            width: 90%;
+        }
+
+        h1 {
+            color: #667eea;
+            font-size: 24px;
+            margin-bottom: 10px;
+        }
+
+        #date {
+            font-size: 18px;
+            color: #666;
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 2px solid #eee;
+        }
+
+        .answer-box {
+            background-color: #f8f9fa;
+            border: 2px solid #667eea;
+            border-radius: 10px;
+            padding: 20px;
+        }
+
+        .answer-label {
+            font-size: 16px;
+            color: #555;
+            margin-bottom: 10px;
+        }
+
+        .answer-value {
+            font-size: 48px;
+            font-weight: bold;
+            color: #764ba2;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <!-- Блок с сегодняшней датой -->
+        <h1>Сегодняшняя дата</h1>
+        <div id="date">Загрузка...</div>
+
+        <!-- Блок с ответом -->
+        <div class="answer-box">
+            <div class="answer-label">Ответ на первое задание</div>
+            <div class="answer-value">0.69</div>
+        </div>
+    </div>
+
+    <script>
+        // Функция для отображения текущей даты
+        function updateDate() {
+            const now = new Date();
+            const options = { 
+                year: 'numeric', 
+                month: 'long', 
+                day: 'numeric',
+                weekday: 'long'
+            };
+            // Форматируем дату на русском языке
+            document.getElementById('date').textContent = now.toLocaleDateString('ru-RU', options);
+        }
+
+        // Вызываем функцию при загрузке страницы
+        updateDate();
+    </script>
+
+</body>
+</html>

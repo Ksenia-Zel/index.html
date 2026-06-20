@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Кроссворд: Фармакология</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            background-color: #f4f6f8;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px;
+            margin: 0;
+        }
+        h1 { color: #2c3e50; margin-bottom: 10px; }
+        
+        .container {
+            display: flex;
+            gap: 30px;
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            max-width: 900px;
+            width: 100%;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .grid-box {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .word-row {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .word-num {
+            font-weight: bold;
+            color: #7f8c8d;
+            width: 25px;
+            text-align: right;
+        }
+
+        .inputs {
+            display: flex;
+            gap: 5px;
+        }
+
+        .inputs input {
+            width: 35px;
+            height: 35px;
+            border: 2px solid #bdc3c7;
+            border-radius: 5px;
+            text-align: center;
+            font-size: 18px;
+            font-weight: bold;
+            text-transform: uppercase;
+            outline: none;
+            transition: all 0.2s;
+        }
+
+        .inputs input:focus {
+            border-color: #3498db;
+            background: #ebf5fb;
+        }
+
+        .inputs input.correct {
+            background-color: #d4edda;
+            border-color: #28a745;
+            color: #155724;
+        }
+
+        .inputs input.wrong {
+            background-color: #f8d7da;
+            border-color: #dc3545;
+            color: #721c24;
+            animation: shake 0.3s;
+        }
+
+        @keyframes shake {
+            0% { transform: translateX(0); }
+            25% { transform: translateX(-3px); }
+            75% { transform: translateX(3px); }
+            100% { transform: translateX(0); }
+        }
+
+        .clues {
+            min-width: 300px;
+            max-height: 500px;
+            overflow-y: auto;
+            padding-right: 10px;
+        }
+
+        .clues h3 {
+            border-bottom: 2px solid #3498db;
+            padding-bottom: 5px;
+            color: #2c3e50;
+        }
+
+        .clue-item {
+            margin-bottom: 8px;
+            padding: 5px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+
+        .clue-item:hover { background: #f0f0f0; }
+        .clue-item b { color: #e67e22; margin-right: 5px; }
+
+        .controls {
+            margin-top: 20px;
+            display: flex;
+            gap: 15px;
+        }
+
+        button {
+            padding: 12px 25px;
+            font-size: 16px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: bold;
+            color: white;
+            transition: transform 0.1s;
+        }
+        button:active { transform: scale(0.98); }
+
+        .btn-check { background: #27ae60; }
+        .btn-giveup { background: #f39c12; }
+        .btn-clear { background: #c0392b; }
+
+        #message {
+            margin-top: 15px;
+            font-weight: bold;
+            height: 24px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>💊 Кроссворд: Фармакология</h1>
+
+    <div class="controls">
+        <button class="btn-check" onclick="checkAnswers()">✅ Проверить</button>
+        <button class="btn-giveup" onclick="showAnswers()">🏳️ Сдаться</button>
+        <button class="btn-clear" onclick="clearAll()">🗑️ Очистить</button>
+    </div>
+    <div id="message"></div>
+
+    <div class="container">
+        <div class="grid-box" id="crossword-grid"></div>
+
+        <div class="clues">
+            <h3>Вопросы:</h3>
+            <div id="clues-list"></div>
+        </div>
+    </div>
+
+<script>
+    const words = [
+        { n: 1, w: "ТАБЛЕТКА",    def: "Самая распространенная твердая лекарственная форма в виде спрессованного порошка" },
+        { n: 2, w: "АМПУЛА",      def: "Запаянная стеклянная емкость для хранения инъекционных растворов" },
+        { n: 3, w: "ДОЗА",        def: "Количество лекарственного средства, принимаемое за один приём" },
+        { n: 4, w: "РЕЦЕПТ",      def: "Письменное назначение врача на отпуск лекарства из аптеки" },
+        { n: 5, w: "АНТИБИОТИК",  def: "Препарат, убивающий бактерии или подавляющий их размножение" },
+        { n: 6, w: "АНАЛЬГЕТИК",  def: "Лекарственное средство, устраняющее болевые ощущения" },
+        { n: 7, w: "ВАКЦИНА",     def: "Препарат для создания искусственного иммунитета к инфекции" },
+        { n: 8, w: "МАЗЬ",        def: "Мягкая лекарственная форма для наружного применения" }
+    ];
+
+    function init() {
+        const gridEl = document.getElementById('crossword-grid');
+        const cluesEl = document.getElementById('clues-list');
+
+        words.forEach(word => {
+            const rowDiv = document.createElement('div');
+            rowDiv.className = 'word-row';
+
+            const numSpan = document.createElement('span');
+            numSpan.className = 'word-num';
+            numSpan.textContent = word.n + '.';
+            rowDiv.appendChild(numSpan);
+
+            const inputsDiv = document.createElement('div');
+            inputsDiv.className = 'inputs';
+
+            for (let i = 0; i < word.w.length; i++) {
+                const input = document.createElement('input');
+                input.maxLength = 1;
+                input.dataset.answer = word.w[i];
+                input.dataset.wordIndex = word.n;
+                
+                input.oninput = function(e) {
+                    this.value = this.value.toUpperCase().replace(/[^А-ЯЁ]/g, '');
+                    if (this.value && i < word.w.length - 1) {
+                        inputsDiv.children[i + 1].focus();
+                    }
+                    clearMessage();
+                };
+
+                input.onkeydown = function(e) {
+                    if (e.key === 'Backspace' && !this.value && i > 0) {
+                        inputsDiv.children[i - 1].focus();
+                    }
+                };
+
+                inputsDiv.appendChild(input);
+            }
+            rowDiv.appendChild(inputsDiv);
+            gridEl.appendChild(rowDiv);
+
+            const clueDiv = document.createElement('div');
+            clueDiv.className = 'clue-item';
+            clueDiv.innerHTML = `<b>${word.n}.</b> ${word.def}`;
+            
+            clueDiv.onclick = () => {
+                const firstInput = gridEl.children[word.n - 1].querySelector('.inputs input');
+                if (firstInput) firstInput.focus();
+            };
+            
+            cluesEl.appendChild(clueDiv);
+        });
+    }
+
+    function checkAnswers() {
+        const inputs = document.querySelectorAll('.inputs input');
+        let errors = 0;
+        let filled = 0;
+
+        inputs.forEach(inp => {
+            inp.classList.remove('correct', 'wrong');
+            if (inp.value) {
+                filled++;
+                if (inp.value === inp.dataset.answer) {
+                    inp.classList.add('correct');
+                } else {
+                    inp.classList.add('wrong');
+                    errors++;
+                }
+            }
+        });
+
+        const msg = document.getElementById('message');
+        if (filled === 0) {
+            msg.textContent = "Заполните кроссворд!";
+            msg.style.color = "#333";
+        } else if (errors === 0 && filled === inputs.length) {
+            msg.textContent = "🎉 Поздравляем! Всё верно!";
+            msg.style.color = "#27ae60";
+        } else {
+            msg.textContent = `❌ Ошибок: ${errors}`;
+            msg.style.color = "#c0392b";
+        }
+    }
+
+    function showAnswers() {
+        const inputs = document.querySelectorAll('.inputs input');
+        inputs.forEach(inp => {
+            inp.value = inp.dataset.answer;
+            inp.classList.remove('wrong');
+            inp.classList.add('correct');
+        });
+        document.getElementById('message').textContent = "Ответы показаны.";
+        document.getElementById('message').style.color = "#f39c12";
+    }
+
+    function clearAll() {
+        const inputs = document.querySelectorAll('.inputs input');
+        inputs.forEach(inp => {
+            inp.value = '';
+            inp.classList.remove('correct', 'wrong');
+        });
+        document.getElementById('message').textContent = '';
+    }
+
+    function clearMessage() {
+        document.getElementById('message').textContent = '';
+    }
+
+    init();
+</script>
+
+</body>
+</html>
